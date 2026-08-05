@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NewAPI1.Data;
 
@@ -10,9 +11,11 @@ using NewAPI1.Data;
 namespace NewAPI1.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260805115615_Student2")]
+    partial class Student2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,25 +24,6 @@ namespace NewAPI1.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("NewAPI1.Models.Major", b =>
-                {
-                    b.Property<int>("MajorId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MajorId"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("MajorName");
-
-                    b.HasKey("MajorId");
-
-                    b.ToTable("tbl_Majors");
-                });
-
             modelBuilder.Entity("NewAPI1.Models.Student", b =>
                 {
                     b.Property<int>("StudentId")
@@ -47,9 +31,6 @@ namespace NewAPI1.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentId"));
-
-                    b.Property<int>("MajorId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -64,23 +45,7 @@ namespace NewAPI1.Migrations
 
                     b.HasKey("StudentId");
 
-                    b.HasIndex("MajorId");
-
                     b.ToTable("tbl_Students");
-                });
-
-            modelBuilder.Entity("NewAPI1.Models.Student", b =>
-                {
-                    b.HasOne("NewAPI1.Models.Major", null)
-                        .WithMany("Students")
-                        .HasForeignKey("MajorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("NewAPI1.Models.Major", b =>
-                {
-                    b.Navigation("Students");
                 });
 #pragma warning restore 612, 618
         }

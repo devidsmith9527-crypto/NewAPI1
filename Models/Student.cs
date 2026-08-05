@@ -10,6 +10,9 @@ namespace NewAPI1.Models
         [Display(Name = "Student ID:")]
         public int StudentId { get; set; } // កំណត់ជា Primary Key
 
+        [ForeignKey("Major")] // បង្ហាញថា MajorId ជា Foreign Key ទៅតារាង Major
+        public int MajorId { get; set; } // Foreign Key ទៅតារាង Major
+        
         [Required(ErrorMessage = "ឈ្មោះមិនអាចទទេឡើយ")]
         [MaxLength(100)]
         [Column("FullName")]
@@ -18,7 +21,7 @@ namespace NewAPI1.Models
 
         [MaxLength(15)]
         [Display(Name = "Phone Number:")]
-        [Column("PhoneNumber")]
+        [Column("PhoneNumber")]        
         public string? PNumber { get; set; } // អនុញ្ញាតឱ្យ Null បាន (សញ្ញា ?)
     }
 }

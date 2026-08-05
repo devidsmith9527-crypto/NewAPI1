@@ -17,8 +17,8 @@ namespace NewAPI1.Data
         }
 
         
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Major> Majors { get; set; } 
+        
     }
 }

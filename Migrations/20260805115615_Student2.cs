@@ -6,11 +6,41 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace NewAPI1.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Student2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.CreateTable(
+                name: "tbl_Students",
+                columns: table => new
+                {
+                    StudentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tbl_Students", x => x.StudentId);
+                });
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "tbl_Students");
+
             migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
@@ -30,10 +60,10 @@ namespace NewAPI1.Migrations
                 {
                     EmpId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EmpName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmpDOB = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EmpEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmpPhone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmpDOB = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    EmpName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmpPhone = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,8 +77,8 @@ namespace NewAPI1.Migrations
                     ProID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CatId = table.Column<int>(type: "int", nullable: false),
-                    ProName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ProName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -66,19 +96,6 @@ namespace NewAPI1.Migrations
                 name: "IX_Products_CatId",
                 table: "Products",
                 column: "CatId");
-        }
-
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "Employees");
-
-            migrationBuilder.DropTable(
-                name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
         }
     }
 }
